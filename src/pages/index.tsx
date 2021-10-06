@@ -21,7 +21,12 @@ export async function getStaticProps() {
 
   const {
     data: { banners, newGames, upcomingGames, freeGames, sections }
-  } = await apolloClient.query<QueryHome>({ query: QUERY_HOME })
+  } = await apolloClient.query<QueryHome>({
+    query: QUERY_HOME,
+    variables: {
+      date: '2021-01-01'
+    }
+  })
 
   return {
     props: {
