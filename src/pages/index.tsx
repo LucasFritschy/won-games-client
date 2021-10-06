@@ -8,6 +8,13 @@ import { QUERY_HOME } from 'graphql/queries/home'
 export default function Index(props: HomeTemplateProps) {
   return <Home {...props} />
 }
+
+// ATENÇÃO:
+// os métodos getStaticProps/getServerSideProps SÓ FUNCIONAM EM PAGES
+
+// getStaticProps => gerar estático em build time (gatsby)
+// getServerSideProps => gerar via ssr a cada request (nunca vai para o bundle do client)
+// getInitialProps => gerar via ssr a cada request (vai para o client, faz hydrate do lado do client depois do 1 req)
 export async function getStaticProps() {
   const apolloClient = initializeApollo()
 
@@ -19,7 +26,7 @@ export async function getStaticProps() {
     props: {
       revalidate: 10,
       banners: banners.map((banner) => ({
-        img: banner.image?.url,
+        img: banner.image?.url || null,
         title: banner.title,
         subtitle: banner.subtitle,
         buttonLabel: banner.button?.label,
@@ -30,6 +37,7 @@ export async function getStaticProps() {
           ribbonSize: banner.ribbon.size
         })
       })),
+      newGamesTitle: sections?.newGames?.title,
       newGames: newGames.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -37,14 +45,16 @@ export async function getStaticProps() {
         img: game.cover?.url || null,
         price: game.price
       })),
+      mostPopularGamesTitle: sections?.popularGames?.title,
       mostPopularHighlight: highlightMock,
-      mostPopularGames: sections?.popularGames!.games.map((game) => ({
+      mostPopularGames: sections!.popularGames!.games.map((game) => ({
         title: game.name,
         slug: game.slug,
         developer: game.developers[0].name,
         img: game.cover?.url || null,
         price: game.price
       })),
+      upcomingGamesTitle: sections?.upcomingGames?.title,
       upcomingGames: upcomingGames.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -53,6 +63,7 @@ export async function getStaticProps() {
         price: game.price
       })),
       upcomingHighlight: highlightMock,
+      freeGamesTitle: sections?.freeGames?.title,
       freeGames: freeGames.map((game) => ({
         title: game.name,
         slug: game.slug,
