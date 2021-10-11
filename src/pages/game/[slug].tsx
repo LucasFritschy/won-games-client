@@ -71,8 +71,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
   })
 
-  console.log(upcomingData)
-
   return {
     props: {
       revalidate: 60,
@@ -95,6 +93,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         rating: game.rating,
         genres: game.categories.map((category) => category.name)
       },
+      upcomingTitle: upcomingData?.showcase?.upcomingGames?.title,
       upcomingGames: gamesMapper(upcomingData.upcomingGames),
       upcomingHighlight: highlightMapper(
         upcomingData?.showcase?.upcomingGames?.highlight
