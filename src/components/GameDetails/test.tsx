@@ -1,4 +1,4 @@
-import { screen, render } from 'utils/test-utils'
+import { render, screen } from 'utils/test-utils'
 
 import GameDetails, { GameDetailsProps } from '.'
 

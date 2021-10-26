@@ -8,7 +8,7 @@ import { useCart } from 'hooks/use-cart'
 
 type CartButtonProps = {
   id: string
-  hasText: boolean
+  hasText?: boolean
 } & Pick<ButtonProps, 'size'>
 
 const CartButton = ({
