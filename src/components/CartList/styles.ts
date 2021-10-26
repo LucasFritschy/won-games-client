@@ -61,6 +61,11 @@ export const Total = styled.span`
   `}
 `
 
+export const GameList = styled.div`
+  max-height: 40rem;
+  overflow-y: auto;
+`
+
 export const Loading = styled.div`
   ${({ theme }) => css`
     background: ${theme.colors.white};
