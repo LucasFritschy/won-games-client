@@ -1,5 +1,4 @@
-import { CartContextDefaultValues, useCart } from 'hooks/use-cart'
-import { act } from 'react-dom/test-utils'
+import { CartContextDefaultValues } from 'hooks/use-cart'
 import { screen, render } from 'utils/test-utils'
 
 import CartIcon from '.'

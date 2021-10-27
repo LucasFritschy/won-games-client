@@ -59,9 +59,7 @@ describe('<Highlight />', () => {
   })
 
   it('should render align left by default', () => {
-    const { container } = render(
-      <Highlight {...props} alignment="left" />
-    )
+    const { container } = render(<Highlight {...props} alignment="left" />)
 
     expect(container.firstChild).toHaveStyleRule(
       'grid-template-areas',
