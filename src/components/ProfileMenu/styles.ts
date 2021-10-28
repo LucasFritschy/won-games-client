@@ -44,6 +44,7 @@ export const Link = styled.a<LinkProps>`
     &:hover {
       background: ${theme.colors.primary};
       color: ${theme.colors.white};
+      cursor: pointer;
     }
 
     > span {

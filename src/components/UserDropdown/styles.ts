@@ -31,6 +31,7 @@ export const Link = styled.a`
     &:hover {
       background: ${theme.colors.primary};
       color: ${theme.colors.white};
+      cursor: pointer;
     }
 
     > svg {

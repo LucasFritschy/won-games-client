@@ -36,6 +36,7 @@ exports[`<ProfileMenu /> should render the menu 1`] = `
 .c1:hover {
   background: #F231A5;
   color: #FAFAFA;
+  cursor: pointer;
 }
 
 .c1 > span {
@@ -157,7 +158,7 @@ exports[`<ProfileMenu /> should render the menu 1`] = `
   </a>
   <a
     class="c1"
-    href="/logout"
+    role="button"
   >
     <svg
       class="c2"
@@ -185,4 +186,4 @@ exports[`<ProfileMenu /> should render the menu 1`] = `
     </span>
   </a>
 </nav>
-`;
+`
