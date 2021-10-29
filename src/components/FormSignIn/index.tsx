@@ -13,11 +13,12 @@ import * as S from './styles'
 import { FieldErrors, signInValidate } from 'utils/validations'
 
 const FormSignIn = () => {
+  const [formError, setFormError] = useState('')
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
   const [values, setValues] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
-  const [fieldError, setFieldError] = useState<FieldErrors>()
-  const [formError, setFormError] = useState('')
-  const { push } = useRouter()
+  const routes = useRouter()
+  const { push, query } = routes
 
   const handleInput = (field: string, value: string) => {
     setValues((s) => ({ ...s, [field]: value }))
@@ -27,54 +28,56 @@ const FormSignIn = () => {
     event.preventDefault()
     setLoading(true)
 
-    const error = signInValidate(values)
+    const errors = signInValidate(values)
 
-    if (Object.keys(error).length) {
+    if (Object.keys(errors).length) {
+      setFieldError(errors)
       setLoading(false)
-      setFieldError(error)
+      return
     }
+
+    setFieldError({})
 
     // sign in
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
-      callbackUrl: '/'
+      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
     })
 
     if (result?.url) {
-      setLoading(false)
       return push(result?.url)
     }
 
-    // jogar o erro
     setLoading(false)
-    setFormError('incorrect email and / or password')
+
+    // jogar o erro
+    setFormError('username or password is invalid')
   }
 
   return (
     <FormWrapper>
       {!!formError && (
         <FormError>
-          <ErrorOutline />
-          <span>{formError}</span>
+          <ErrorOutline /> {formError}
         </FormError>
       )}
       <form onSubmit={handleSubmit}>
         <TextField
           name="email"
           placeholder="Email"
-          type="email"
+          type="text"
+          error={fieldError?.email}
           onInputChange={(v) => handleInput('email', v)}
           icon={<Email />}
-          error={fieldError?.email}
         />
         <TextField
           name="password"
           placeholder="Password"
           type="password"
+          error={fieldError?.password}
           onInputChange={(v) => handleInput('password', v)}
           icon={<Lock />}
-          error={fieldError?.password}
         />
         <S.ForgotPassword href="#">Forgot your password?</S.ForgotPassword>
 
